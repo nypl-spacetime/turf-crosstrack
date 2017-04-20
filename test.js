@@ -1,23 +1,26 @@
-var test = require('tape'),
-    crosstrack = require('./');
+const test = require('tape')
+const crosstrack = require('./')
 
-test('crosstrack', function(t){
-  var pt1 = { 
-    "type": "Feature",
-    "geometry": {"type": "Point", "coordinates": [-114.96, 36.87]}
-  }
-  var pt2 = {
-    "type": "Feature",
-    "geometry": {"type": "Point", "coordinates": [-98.79, 46.07]}
-  }
-  var pt3 = {
-    "type": "Feature",
-    "geometry": {"type": "Point", "coordinates": [-103.35, 36.88]}
+test('crosstrack', function (t) {
+  const point = {
+    type: 'Feature',
+    geometry: {
+      type: 'Point',
+      coordinates: [-103.35, 36.88]
+    }
   }
 
-  var distToLine = crosstrack(pt1, pt2, pt3, 'miles')
+  const segment = {
+    type: 'LineString',
+    coordinates: [
+      [-114.96, 36.87],
+      [-98.79, 46.07]
+    ]
+  }
+
+  const distToLine = crosstrack(point, segment, 'miles')
 
   t.ok(distToLine, 'should return a number')
-  t.equal(distToLine, 402.27495505732935, 'should be about 402 miles')
+  t.equal(Math.abs(distToLine - 402.27495505732935) < 0.001, true, 'should be about 402 miles')
   t.end()
 })

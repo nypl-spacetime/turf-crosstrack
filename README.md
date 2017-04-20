@@ -1,42 +1,52 @@
-turf-crosstrack
-============
-Find the distance between a point and a line segment
+# turf-crosstrack
 
-### Install
+Find the distance between a point and a line segment.
+
+Adapted from https://github.com/jczaplew/turf-crosstrack.
+
+## Install
 
 ````
-npm install turf-crosstrack
+npm install nypl-spacetime/turf-crosstrack
 ````
 
-### Parameters
+## Parameters
 
-|name|type|description|
-|---|---|---|
-| lineStart | point | start coordinate of the line |
-| lineEnd | point | end coordinate of the line |
-| point | point | point to measure distance from |
-| units | string | units of result ('miles', 'kilometers', 'degrees' or 'radians') |
+| Name      | Type               | Description                                                     |
+|:----------|:-------------------|:----------------------------------------------------------------|
+| `point`   | GeoJSON Point      | Point to measure distance from                                  |
+| `segment` | GeoJSON LineString | Line with __two points__                                        |
+| `units`   | String             | Units of result (`miles`, `kilometers`, `degrees` or `radians`) |
 
-### Usage
+## Usage
 
 ````
 crosstrack(lineStart, lineEnd, point, units)
 ````
 
-### Example
+## Example
 
-````
-var point = require("turf-point"),
-    crosstrack = require("turf-crosstrack");
+```js
+const point = require("@turf/point')
+const crosstrack = require('turf-crosstrack')
 
-var a = point(-114.96, 36.87),
-    b = point(-98.79, 46.07),
-    c = point(-103.35, 36.88);
+const point = {
+  type: 'Point',
+  coordinates: [-103.35, 36.88]
+}
 
-var pointToLineDistance = crosstrack(a, b, c, 'miles');
+const segment = {
+  type: 'LineString',
+  coordinates: [
+    [-114.96, 36.87],
+    [-98.79, 46.07]
+  ]
+}
 
-console.log(pointToLineDistance);
-````
+const pointToLineDistance = crosstrack(point, segment, 'miles')
 
-### Credits
+console.log(pointToLineDistance)
+```
+
+## Credits
 Formula via http://www.movable-type.co.uk/scripts/latlong.html
